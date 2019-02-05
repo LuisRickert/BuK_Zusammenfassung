@@ -143,11 +143,13 @@ $\rightarrow$ abstraktes Automatenmodell, entwickelt von Alan Turing, um die Dur
 \item Zustandsübergangsfunktion:\begin{align*}
 	\delta:(Q/\{\bar{q}\}\times\Gamma\to Q\times\Gamma\times\{R,L,N\}
 \end{align*}
-\end{itemize}
-\begin{enumerate}
-	
+\item Alternative: Darstellung der übergangsfunktion in einer Tabelle, Spalten sind die Symbole des Eingabealphabet, die Zeilen die die möglichen Zustände. Der Endzustand kommt nur als Transitionsziel in den Zellen der Tabelle vor. In den Zellen stehen Tupel der Form $(Zustand,schreiben,richtung)$. D.h. wenn man im Zustand $q_i$ die Eingabe $e$ ließt führt man $(q_j,k,r)$ aus mit $k\in\Gamma\land r\in\{R,L,N\}$ .man wechselt in Zustand $q_j,$ überschreibt die gelesene Zelle mit $k$ und bewegt sich in die Richtug $r$.
 \end{enumerate}
+\paragraph{k-Spur TM} Eine TM mit k-Spuren, die Spuren stehen unter eineander mit einem Kopf, jedoch können sich die Köpfe nich getrennt von eineander bewegen. Hier wird das Bandalphabet um $k-$dimensionale Vektoren erweitern.
+\paragraph{k-Band TM } Eine Tm mit k-Bändern, ähnlich wie k-Spur TM nur das sich die Köpfe unabhäning von einander bewegen können. Die übergangsfuntkion $\delta$ wird zu $\delta:(Q/\{\bar{q}\}\times\Gamma^k\to Q\times\Gamma^k\times\{L,R,N\}^k)$ erweitert. Band 1 ist das Eingabe/Ausgabe Band.\\
+Eine TM $M$ mit Rechenzeit $t(n)$ und Platzbedarf $s(n)$ auskommt, kann von einer (1-Band) TM $M'$ mit Zeitbedarf $O(t^2(n))$ und Platzbedarf $O(s(n))$ simuliert werden.
 \end{definition}
+
 \subsubsection{Konfiguration}
 
 \paragraph{Konfiguration}
@@ -162,6 +164,10 @@ $\rightarrow$ abstraktes Automatenmodell, entwickelt von Alan Turing, um die Dur
 \begin{itemize}
 \item $\alpha'' q''\beta''$ heißt Nachfolgekonfiguration von $\alpha q\beta$ wenn $\alpha'' q''\beta''$ in endlich vielen Rechenschritten erreicht werden kann $\to\alpha q\beta \vdash \alpha''q''\beta''$
 \end{itemize}
+\paragraph{Nachvollziehen einer Berechnung}
+Um eine Rechnung nachzuvollziehen gibt man eine Abfolge von Konfigurationen an. z.B.:\begin{align*}
+q_00110\vdash 0q_0110\vdash 01q_1 10\vdash 011q_1 0\vdash 0110q_0 B \vdash 0110\bar{q}1 
+\end{align*}
 \paragraph{TM-Berechenbare Funktionen}
 - TM die für jede Eingabe terminiert berechnet eine totale Funktion.
 - Das die Ausgabe beginnt unter dem Lese/Schreibkopf und wird nach  rechts durch den ersten Buchstaben begrenzt der nicht im Bandalphabet ist.
