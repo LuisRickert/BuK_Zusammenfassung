@@ -15,6 +15,7 @@
 \usepackage{amsthm}
 \usepackage{booktabs}
 \usepackage[top=2cm, left=1.5cm, right=1.5cm, bottom=3cm]{geometry}
+\usepackage{mathtools}
 %------------------------- Einstellungen -------------------------------
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2ex plus 0.5ex minus 0.2ex}
@@ -53,6 +54,7 @@ literate={ö}{{\"o}}1 {ä}{{\"a}}1 {ü}{{\"u}}1 {°}{\dg}1 {»}{\frqq}1 {«}{\fl
 \newcommand{\studentB}{\textbf{Luis Rickert} -- 318153}
 \newcommand{\kleene}{\Sigma^*}
 \newcommand{\bb}{$b:=b+1$}
+\newcommand{\goedl}[1]{\langle {#1}\rangle}
 %Left side of the Top header:
 \fancyhead[L]{
 	\textbf{\courseName}\\
@@ -201,9 +203,18 @@ RAM (Random Access Machine)\begin{itemize}
     \end{itemize}
 \end{itemize} 
 \end{definition}
+\begin{definition}{"minimales"-RAM-Modell:}[Skript 1.22]
+URM-Programm hat die Form $1.instr_1,2.instr_2,\dots,k-1.instr_{k-1},k.end$ wobei jedes $instr_j,\quad j=1,\dots,k-1$ eines der folgenden 3 Typen sein kann.\begin{align}
+    INC(X_i)=&\quad &(X_i:=X_i+1)\\
+    DEC(X_i)=&\quad &(X_i:=X_i-1)\\
+    IF X_i=& 0\quad GOTO &l(1\leq l\leq k)
+\end{align}
+
+\end{definition}
 \subsubsection{Verlgeich TM vs. RAM}
 Jede RAM deren Laufzeit durch $t(n)$ beschränkt ist, kann druch eine TM simuliert werden, die durch ein Polynom $O(q(n+t(n))$ beschränkt ist simuliert werden.[Skript Sat 1.23]\\ \\
 Jede $t(n)$ Zeit beschränkte TM  kann durch eine RAM simuliert werden die uniform $O(t(n)+n)$ und logarithmisch \\$O((t(n)+n)log(t(n)+n))$ zeitbeschränkt ist.[Skropt Satz 1.26]
+
 \subsubsection{RAM-Befehle}
 \begin{tabular}{|l|l|c|}
     \hline
@@ -240,21 +251,14 @@ Jede $t(n)$ Zeit beschränkte TM  kann durch eine RAM simuliert werden die unifo
     END & ENDE der Rechnung& \\
     \hline
 \end{tabular}\footnote{$n/0=0$ für Berechnungen in RAMs}\footnote{$c(0)\dot{-}c(i)=0\Longleftrightarrow c(0)\leq c(i)$}
-\begin{definition}{"minimales"-RAM-Modell:}[Skript 1.22]
-URM-Programm hat die Form $1.instr_1,2.instr_2,\dots,k-1.instr_{k-1},k.end$ wobei jedes $instr_j,\quad j=1,\dots,k-1$ eines der folgenden 3 Typen sein kann.\begin{align}
-    INC(X_i)=&\quad &(X_i:=X_i+1)\\
-    DEC(X_i)=&\quad &(X_i:=X_i-1)\\
-    IF X_i=& 0\quad GOTO &l(1\leq l\leq k)
-\end{align}
 
-\end{definition}
 
 \subsection{Zusammenfassung Kaptiel 1}
 \begin{itemize}
 \item eine Funktion ist berechenbar wenn es eine TM gibt, die sie berechnet
 \item eine Funktion ist total, wenn sie für alle Möglichen Eingaben definiert ist $f:M\to N$
 \item eine Funktion ist partiell, wenn sie für eine Teilmenge der möglichen Eingaben definiert ist $f:M\leadsto N$
-\item eine Sprache ist rekursiv, wenn es eine TM gibt die sie entscheidet\begin{itemize}
+\item eine Sprache ist rekursiv/berechenbar, wenn es eine TM gibt die sie entscheidet\begin{itemize}
 \item $1\forall w \in L$
 \item $0\forall w\not\in L$
 \end{itemize}
@@ -275,5 +279,54 @@ URM-Programm hat die Form $1.instr_1,2.instr_2,\dots,k-1.instr_{k-1},k.end$ wobe
     \item log: $O(t(n)+n)log(t(n)+n)$
 \end{itemize}
 
+\end{itemize}
+\newpage
+\section{Berechenbarkeit}
+\subsection{Church-Turing-These} Die Klasse der Turing-berechenbaren Funktion stimmt mit der KLasse der intuitiv berechenbaren Funktionen überein.
+\subsection{Berechenbarkeit, Aufzählbarkeit, Entscheidbarkeit}
+
+Eine Menge $L\subseteq \kleene$ ist aufzählbar gdw. $Def(f)=L,\quad f:\kleene\leadsto\kleene$. "$L$ ist Definitionsbereich einer berechenbaren Funktion (es gibt eine TM die sie berechnet)"
+\paragraph{Graph einer Funktion}
+Funktion $f:\kleene\leadsto\kleene ,G_f=\{u\# v|u\in Def(f)\land f(u)=v\}\quad f$ ist genau dann berechenbar, wenn $G_f$ aufzählbar.
+\paragraph{Satz 2.5} 
+\subparagraph{a)}\boxed{ \text{Ist } $L\subseteq \kleene$ entscheidbar $\Rightarrow\quad L$ aufzählbar}
+\subparagraph{b)} \boxed{$L\subseteq\kleene$ entscheibar gdw. $L$ aufzählbar  \underline{und} $\kleene/L$ aufzählbar}
+
+\begin{definition}{semi-entscheibar}[Skript 2.6]
+Eine Spreache $L\subseteq\kleene$ heißt semi-entscheidbar, wenn es eine TM $M$ über $\Sigma$ gibt, die:
+\begin{align*}
+    &\begin{rcases}\forall w&\in L \text{ terminiert } M \\ \forall w&\not\in L, M=\perp\end{rcases} = Aufzähbarkeit\\
+    &\Rightarrow \boxed{L\in\kleene \text{ semi-entscheidbar }\Longleftrightarrow L \text{ aufzählbar}[\text{Skript Satz }2.7]}
+\end{align*}
+
+\end{definition}
+\subsection{Halteproblem H}
+Ein Problem ist nicht entcheidbar, dann gibt es keine Möglichkeit diese Problem zu berechnen!
+\begin{definition}{Abzählbarkeit}[Skrpt Def. 2.8]
+Eine Menge $M$ heißt abzählbar, wenn es eine surjektive Funktion $f:\mathbb{N}\to M$ gibt.
+\end{definition}
+\subsubsection{Kodierung einer TM (Gödelnummern)}
+\begin{itemize}
+    \item $i$ Nummerierung des Aktuellen Zustands
+    \item $a_k$ Nummer des gelesenen Buchstabens
+    \item $j$ Nummer des Ziel Zustands
+    \item $a_l$ Nummer des zu schreibenden Buchstabens
+    \item $0=L,00=R,000=N$ Bewegungsrichtung
+\end{itemize}
+$\Rightarrow$ für einen Eintrag $z$ in der Transitionstabelle einer TM gilt dann 
+$code(z)=0^i10^k10^j10^l(0|00|000)$. Die gesamte Kodierung der TM M gibt sich dann aus folgender Kombination.
+$\goedl{M}=111code(z_1)11code(z_2)11\dots11code(z_s)111$
+\\ \\
+Die Menge der TM Kodierungen ist entscheidbar. Die Menge der Turingmaschienen über $\{0,1\}$ ist abzählbar.
+\subsection{Zusammenfassung Kapitel 2}
+\begin{itemize}
+    \item Church/Turing-These: klasse der TMs ist gleich der Intuitiv berechenbaren Funktionen
+    \item L ist aufzählbar, wenn sie defintionsbereich einer berechenbaren Funktion ist ($\exists$ TM die diese Funktion berechnet)
+    \item Funktion f ist berechenbar wenn ihr Graph aufzählbar.
+    \item Sprache L semi-entscheidbar gdw. L aufzählbar
+    \item eine Menge M ist abzählbar wenn es eine surjektive Abbildung von $\mathbb{N}$ auf M gibt.\begin{itemize}
+        \item Abzählbarkeit $\neq$ Berechenbarkeit!
+    \end{itemize}
+    
 \end{itemize}
 \end{document}
