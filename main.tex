@@ -52,7 +52,7 @@ literate={ö}{{\"o}}1 {ä}{{\"a}}1 {ü}{{\"u}}1 {°}{\dg}1 {»}{\frqq}1 {«}{\fl
 
 \newcommand{\studentB}{\textbf{Luis Rickert} -- 318153}
 \newcommand{\kleene}{\Sigma^*}
-
+\newcommand{\bb}{$b:=b+1$}
 %Left side of the Top header:
 \fancyhead[L]{
 	\textbf{\courseName}\\
@@ -185,6 +185,69 @@ Eine Sprache $L$ heißt TM-Entscheidbar oder rekursiv, wenn es eine TM $M$ gibt,
 \end{itemize}
 Eine Sprache $L$ heißt rekursiv aufzählbar, wenn es eine Aufzähler gibt, der die Spache $L$ enthält
 \end{definition}
+\subsection{Registermaschine}
+\begin{definition}{Registermaschine}[Skript 1.3.3]
+RAM (Random Access Machine)\begin{itemize}
+    \item hat unbeschränkte Anzahl an Registern $c(0),c(1),c(2),\dots,c(n)$
+    \item Register $c(0)$ heißt Akkumulator, Rechnerbefehle nutzen dieses Register als implizites Argument, sowie als Speicherort für das Ergebnis von Rechenoperationen
+    \item Inhalt der Register sind ganze Zahlen, beliebiger Größe
+    \item der Befehlszähler $b$ wird mit $1$ initialisiert
+    \item Ram durchläuft ein Programm das aus nummerierten Zeilen besteht, bei der Jede Zeile ein Befehl ist. $b+=1$ wenn der Befehl aus geführt wurde.
+    \item ein Programm terminiert sobald der Befehl 'END' erreicht wird
+    \item für die Laufzeitberechnung gibt es zwei Modelle:\begin{itemize}
+        \item Uniformes Kostenmaß: Jeder Schritt ist eine Zeiteinheit
+        \item Logarithmisches Kostenmaß: Laufzeikosten eines Schritts sind poportional zur binären Länge der Zahlen in den angesprochenen Registern 
+        \item terminiert die Berechnung nicht, ist die Laufzeit unbeschränkt
+    \end{itemize}
+\end{itemize} 
+\end{definition}
+\subsubsection{Verlgeich TM vs. RAM}
+Jede RAM deren Laufzeit durch $t(n)$ beschränkt ist, kann druch eine TM simuliert werden, die durch ein Polynom $O(q(n+t(n))$ beschränkt ist simuliert werden.[Skript Sat 1.23]\\ \\
+Jede $t(n)$ Zeit beschränkte TM  kann durch eine RAM simuliert werden die uniform $O(t(n)+n)$ und logarithmisch \\$O((t(n)+n)log(t(n)+n))$ zeitbeschränkt ist.[Skropt Satz 1.26]
+\subsubsection{RAM-Befehle}
+\begin{tabular}{|l|l|c|}
+    \hline
+    Syntax & Zustandsänderung&Änderung von $b$  \\
+    \hline
+    LOAD $i$ &$c(0)=c(i)$ &\bb \\
+    CLOAD $i$ & $c(0)=i$& \bb \\
+    INDLOAD $i$&$c(0)=c(c(i))$&\bb\\
+    \hline
+    STORE $i$ &$c(i):=c(0)$&\bb\\
+    INDSTORE $i$ & $c(c(i))=c(0)$&\bb\\
+    \hline
+    ADD $i$ & $c(0)=c(0)+c(i)$&\bb\\
+    CADD $i$ & $c(0)=c(0)+i$&\bb\\
+    INDADD $i$ & $c(0)=c(0)+c(c(i))$&\bb\\
+    \hline
+    SUB $i$ & $c(0)=c(0)\dot{-} c(i)$&\bb\\
+    CSUB $i$ & $c(0)=c(0)\dot- i$&\bb\\
+    INDSUB $i$ & $c(0)=c(0)\dot- c(c(i))$&\bb\\
+    \hline
+    MULT $i$ &$c(0)=c(0)\cdot c(i) $ & \bb\\
+    CMULT $i$ & $c(0)=c(0)\cdot i$&\bb\\
+    INDMLT $i$&$c(0)=c(0)\cdot c(c(i))$&\bb\\
+    \hline
+    DIV $i$ & $c(0)=\lfloor c(0)/c(i)\rlfoor$&\bb\\
+    CDIV $i$ & $c(0)=\lfloor c(0)/i \rfloor$&\bb\\
+    INDDIV $i$ &$c(0)=\lfloor c(0)/c(c(i))\rfloor$&\bb\\
+    \hline
+    GOTO $i$ &-&$b:=i$\\
+    IF $c(0)=x$ GOTO $j$&-&$b:=\begin{cases}{j,\text{ falls }c(0)=x\\b+1 \text{ sonst}\end{cases}$\\
+    IF $c(0)<x$ GOTO $j$&-&$b:=\begin{cases}j\text{ falls }c(0)<x\\b+1\text{ sonst}\end{cases}$\\
+    IF $c(0)\leq x$ GOTO $j$&-&$b:=\begin{cases}j\text{ falls }c(0)\leq x\\b+1\text{ sonst}}\end{cases}$\\
+    \hline
+    END & ENDE der Rechnung& \\
+    \hline
+\end{tabular}\footnote{$n/0=0$ für Berechnungen in RAMs}\footnote{$c(0)\dot{-}c(i)=0\Longleftrightarrow c(0)\leq c(i)$}
+\begin{definition}{"minimales"-RAM-Modell:}[Skript 1.22]
+URM-Programm hat die Form $1.instr_1,2.instr_2,\dots,k-1.instr_{k-1},k.end$ wobei jedes $instr_j,\quad j=1,\dots,k-1$ eines der folgenden 3 Typen sein kann.\begin{align}
+    INC(X_i)=&\quad &(X_i:=X_i+1)\\
+    DEC(X_i)=&\quad &(X_i:=X_i-1)\\
+    IF X_i=& 0\quad GOTO &l(1\leq l\leq k)
+\end{align}
+
+\end{definition}
 
 \subsection{Zusammenfassung Kaptiel 1}
 \begin{itemize}
@@ -200,5 +263,17 @@ Eine Sprache $L$ heißt rekursiv aufzählbar, wenn es eine Aufzähler gibt, der 
 \item $f_M(w)=\perp\forall w\not\in L$ ($\perp\widehat{=}$terminiert nicht bzw nicht definiert)
 \end{itemize}
 \item eine Sprache ist aufzählbar(=rekursiv aufzählbar), wenn es einen Aufzähler für sie gibt
+\item Register der RAM können beliebig große Ganze zahlen enthalten
+\item \begin{itemize}
+    \item uniformes Kostenmaß: jeder Schritt eine Zeiteinheit
+    \item log Kostenmaß: Laufzeitkosten prop. zur bin. Länge der angesprochenen Register
+\end{itemize}
+\item jede RAM,$t(n)$ beschränkt, kann durch TM simluiert werden Laufzeit : $O(q(n+t(n))$ beschränkt,$p(k)$ polynom
+\item jede TM,$t(n)$ beschränkt, kann druch eine RAM simuliert werden, 
+\begin{itemize}
+    \item uniform: $O(t(n)+n)$ 
+    \item log: $O(t(n)+n)log(t(n)+n)$
+\end{itemize}
+
 \end{itemize}
 \end{document}
