@@ -16,6 +16,8 @@
 \usepackage{booktabs}
 \usepackage[top=2cm, left=1.5cm, right=1.5cm, bottom=3cm]{geometry}
 \usepackage{mathtools}
+
+\usepackage{ marvosym }
 %------------------------- Einstellungen -------------------------------
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2ex plus 0.5ex minus 0.2ex}
@@ -317,7 +319,25 @@ $\Rightarrow$ für einen Eintrag $z$ in der Transitionstabelle einer TM gilt dan
 $code(z)=0^i10^k10^j10^l(0|00|000)$. Die gesamte Kodierung der TM M gibt sich dann aus folgender Kombination.
 $\goedl{M}=111code(z_1)11code(z_2)11\dots11code(z_s)111$
 \\ \\
-Die Menge der TM Kodierungen ist entscheidbar. Die Menge der Turingmaschienen über $\{0,1\}$ ist abzählbar.
+Die Menge der TM Kodierungen ist entscheidbar. Die Menge der Turingmaschienen über $\{0,1\}$ ist abzählbar.\\ \\
+Gödelisierung: Kodierung von logischen Behauptung (' x wird durch den Beweis y formal bewiesen')
+\\ \\ 
+Die Potenzmenge der Natürlichenzahlen $\mathcal{P}(\mathbb{N})$ ist überabzahlbar. Beweis: \begin{itemize}
+    \item Annahme $\mathcal{P}(\mathbb{N})$ ist abzählbar $\to \exists f:\mathbb{N}\to\mathcal{P}(\mathbb{N})$
+    \item wähle Teilmenge $K=\{i\in\mathbb{N}|i\not\in f(i)\}\subseteq\mathcal{P}(\mathbb{N})$
+    \item $\rightarrow \exists i_0:f(i_0)=K$
+    \item $\LongRightarrow i_0\in K\Longleftrightarrow i_0\not\in f(i_0)\Longleftrightarrow i_0\not\in K \text{\Lightning}$ 
+\end{itemize}\\ \\
+
+$\Longrightarrow$ Die Menge aller Sprachen $L\subseteq\{0,1\}^*$(Potenzmenge) ist nicht abzählbar.\\ \\
+Die Menge der entscheidbaren Sprachen $L\subseteq\{0,1\}^*$ ist abzählbar.
+\subsection{Halteproblem für Turingmaschinen}
+\begin{itemize}
+    \item Gegeben: Turingmaschine M über $\{0,1\}$, Eingabewort $w\in\{0,1\}^*$
+    \item Stoppt die TM M auf der Eingabe w ?
+    \item Formal: $H=\{\goedl{M}w|M\text{ hält auf }w\}$
+    \item \underline{Das Halteproblem $H$ ist nicht entscheidbar!}
+\end{itemize}
 \subsection{Zusammenfassung Kapitel 2}
 \begin{itemize}
     \item Church/Turing-These: klasse der TMs ist gleich der Intuitiv berechenbaren Funktionen
@@ -327,6 +347,6 @@ Die Menge der TM Kodierungen ist entscheidbar. Die Menge der Turingmaschienen ü
     \item eine Menge M ist abzählbar wenn es eine surjektive Abbildung von $\mathbb{N}$ auf M gibt.\begin{itemize}
         \item Abzählbarkeit $\neq$ Berechenbarkeit!
     \end{itemize}
-    
+    \item das allgemeine Halteproblem $H=\{\goedl{M}w|M\text{ hält auf }w\}$ ist nicht entscheidbar
 \end{itemize}
 \end{document}
