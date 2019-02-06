@@ -337,7 +337,33 @@ Die Menge der entscheidbaren Sprachen $L\subseteq\{0,1\}^*$ ist abzählbar.
     \item Stoppt die TM M auf der Eingabe w ?
     \item Formal: $H=\{\goedl{M}w|M\text{ hält auf }w\}$
     \item \underline{Das Halteproblem $H$ ist nicht entscheidbar!}
+    \item $H$ ist turing aufzählbar
+    \item $\bar{H}$ ist nicht aufzählbar! da sonst $H$ entscheidbar
 \end{itemize}
+
+\paragraph{Satz 2.16} Es gibt eine universelle Turingmaschine.
+\paragraph{Satz 2.19} Die Klasse der aufzählbaren Sprachen über $\{0,1\}$ ist abgeschlossen unter der Vereinigung und Durschnitt, nicht jedoch unter Komplement.
+\paragraph{Sats 2.20} Die Klasse der entscheidbaren Sprachen (über $\{0,1\}$) ist eine Boolsche Algebra - sie ist abgeschlossen über unter Vereinigung, Durschschnitt und Komplement.
+\subsection{Liste unentscheidbarer Probleme}
+\begin{itemize}
+    \item allgemeine Halteproblem $H=\{\goedl{M}w|M\text{ hält auf }w\}$
+    \item einfaches Halteproblem $H_\epsilon = \{\goedl{M}\epsilon|M\text{ hält auf }\epsilon}$[Satz 2.25]
+    \item Äquivalenzproblem $Eq=\{\goedl{M_1}\goedl{M_2}|\forall w\in\{0,1\}^*:\goedl{M_1}w=\goedl{M_2}w\}$ berechnen $M_1$ und $M_2$ die selbe Funktion?[Satz 2.26]
+    \item Totalitätsproblem $T=\{\goedl{M}|\forall w\in\{0,1\}:\goedl{M}w\neq\perp\}$ hält $M$ auf allen Eingaben?[Satz 2.27]
+\end{itemize}
+\subsection{Reduktionsmethode}
+Nehmen an ein Problem P kann entschieden werden, dann gibts es eine TM M die dieses Problem lößt. Kann man diese TM M mit einer anderen TM so umformen das sie ein bekanntes unentscheidbares Problem Q lößt? Wenn Ja ist das gegebene Problem P unentscheidbar. gechrieben $Q\leq P \to$ P ist mindestens so schwierig wie Q. P ist reduzierbar auf Q.\\ \\ 
+$P\leq Q \Longleftrightarrow \exists f:I_P\to I_Q$ f berechenbar mit $x\in P gdw. f(x)\in Q\forall x\in I_P$
+\paragraph{Reduktionslemma [2.24]} Gelte $p\leq Q$. Wenn P unentscheidbar, dann auch Q.
+\subsection{Der Satz von Rice}
+Eine Eigenschaft E einer TM heißt nicht-trivial wenn es eine TM mit E gibt, aber auch eine TM, die die Eigenschaft E nicht hat. Eine Eigenschaft einer TM M,  E heißt semantisch wenn E für M nur von der durch M bereschneten Funktion abhängt. $M_1,M_2$ berechnen die selbe Funktion, dann gilt $M_1$ hat E gdw. $M_2$ hat E.
+\begin{itemize}
+    \item TM-Eigenschaft E nicht-triviai, wenn es gibt TM die E hat und TM die die Eigenschaft E nicht hat.
+    \item TM-Eigenchaft E semantisch, wenn die Eigenschaft nur von der berechneten Funktion abhängt\begin{itemize}
+        \item $M_1\land M_2$ berechnen die selbe Funktion $\Longrightarrow M_1$ hat E gdw. $M_2}$ hat E
+    \end{itemize}
+\end{itemize}
+\paragraph{Satz von Rice} Jede nicht-triviale semantische Eigenschaft E ist unentscheidbar. 
 \subsection{Zusammenfassung Kapitel 2}
 \begin{itemize}
     \item Church/Turing-These: klasse der TMs ist gleich der Intuitiv berechenbaren Funktionen
@@ -347,6 +373,9 @@ Die Menge der entscheidbaren Sprachen $L\subseteq\{0,1\}^*$ ist abzählbar.
     \item eine Menge M ist abzählbar wenn es eine surjektive Abbildung von $\mathbb{N}$ auf M gibt.\begin{itemize}
         \item Abzählbarkeit $\neq$ Berechenbarkeit!
     \end{itemize}
-    \item das allgemeine Halteproblem $H=\{\goedl{M}w|M\text{ hält auf }w\}$ ist nicht entscheidbar
+    \item das allgemeine Halteproblem $H=\{\goedl{M}w|M\text{ hält auf }w\}$ ist nicht entscheidbar\begin{itemize}
+        \item $H$ ist Turing-Aufzählbar [Satz 2.17]
+        \item $\bar{H}$ ist nicht aufzählbar [Satz 2.18] da H nicht entscheidbar, wäre $\bar{H}$ aufzählbar, dann wäre mit $H$ aufzählbar H entscheidbar \Lightning.
+    \end{itemize}
 \end{itemize}
 \end{document}
