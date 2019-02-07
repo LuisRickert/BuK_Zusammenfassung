@@ -358,12 +358,21 @@ $P\leq Q \Longleftrightarrow \exists f:I_P\to I_Q$ f berechenbar mit $x\in P gdw
 \subsection{Der Satz von Rice}
 Eine Eigenschaft E einer TM heißt nicht-trivial wenn es eine TM mit E gibt, aber auch eine TM, die die Eigenschaft E nicht hat. Eine Eigenschaft einer TM M,  E heißt semantisch wenn E für M nur von der durch M bereschneten Funktion abhängt. $M_1,M_2$ berechnen die selbe Funktion, dann gilt $M_1$ hat E gdw. $M_2$ hat E.
 \begin{itemize}
-    \item TM-Eigenschaft E nicht-triviai, wenn es gibt TM die E hat und TM die die Eigenschaft E nicht hat.
+    \item TM-Eigenschaft E nicht-trivial, wenn es gibt TM die E hat und TM die die Eigenschaft E nicht hat.
     \item TM-Eigenchaft E semantisch, wenn die Eigenschaft nur von der berechneten Funktion abhängt\begin{itemize}
         \item $M_1\land M_2$ berechnen die selbe Funktion $\Longrightarrow M_1$ hat E gdw. $M_2}$ hat E
     \end{itemize}
 \end{itemize}
 \paragraph{Satz von Rice} Jede nicht-triviale semantische Eigenschaft E ist unentscheidbar. 
+\subparagraph{Formulierung:}
+\begin{align*}
+    \text{Sei }&\mathcal{R}=\text{ Menge der von TM berechenbaren patiellen Funktionen.}\\
+    \text{Sei }&\mathcal{S}\subset\mathcal{R},\emptyset\subsetneq\mathcal{S}\subsetneq\mathcal{R}\\
+    &\text{Dabb ist die Sprache}\\
+    L(\mathcal{S})&=\{\goedl{M}|M \text{ berechnet eine Funktion aus }\mathcal{S}\}\\
+    &\text{ nicht entscheidbar}
+\end{align*}
+$\rightarrow$ Wenn nach Eigenschaften der eingegebnenen TM gefragt wie, wie "M berechnet bei Eingabe 17 die Zahl 42" dann Satz von RIce anwenden
 \subsection{Zusammenfassung Kapitel 2}
 \begin{itemize}
     \item Church/Turing-These: klasse der TMs ist gleich der Intuitiv berechenbaren Funktionen
@@ -376,6 +385,16 @@ Eine Eigenschaft E einer TM heißt nicht-trivial wenn es eine TM mit E gibt, abe
     \item das allgemeine Halteproblem $H=\{\goedl{M}w|M\text{ hält auf }w\}$ ist nicht entscheidbar\begin{itemize}
         \item $H$ ist Turing-Aufzählbar [Satz 2.17]
         \item $\bar{H}$ ist nicht aufzählbar [Satz 2.18] da H nicht entscheidbar, wäre $\bar{H}$ aufzählbar, dann wäre mit $H$ aufzählbar H entscheidbar \Lightning.
+    \end{itemize}
+    \item Satz von Rice bei Sprachen die auf nach nicht-trivialen semantischen EIgenschaften der Eingegebenen Funktion/TM fragen:\begin{itemize}
+        \item nicht-trivial, es gibt TMs die diesse Eigenschaft haben und welche die sie nicht haben
+        \item semantisch, die Eigenschaft hängt von der von M berechneten Funktion ab.
+        \item Zeige \begin{enumerate}
+            \item definiere Menge $\mathcal{S}$
+            \itme Zeige $\mathcal{S}\neq\emptyset$ Bsp. $f_M(x)=42,\forall x\in\mathbb{N}$
+            \item Zeige $\mathcal{S}\neq\mathcal{R}$ Bsp $f(x)=0,\forall x\in\mathbb{N}\Rightarrow x\not\in\mathcal{S}$
+            \item es folgt nach SvR\footnote{Satz von Rice} das $L_{eingabe}=L(S)$ nicht entscheidbar.
+        \end{enumerate}
     \end{itemize}
 \end{itemize}
 \end{document}
