@@ -344,6 +344,16 @@ Die Menge der entscheidbaren Sprachen $L\subseteq\{0,1\}^*$ ist abzählbar.
 \paragraph{Satz 2.16} Es gibt eine universelle Turingmaschine.
 \paragraph{Satz 2.19} Die Klasse der aufzählbaren Sprachen über $\{0,1\}$ ist abgeschlossen unter der Vereinigung und Durschnitt, nicht jedoch unter Komplement.
 \paragraph{Sats 2.20} Die Klasse der entscheidbaren Sprachen (über $\{0,1\}$) ist eine Boolsche Algebra - sie ist abgeschlossen über unter Vereinigung, Durschschnitt und Komplement.
+\paragraph{$H$}$H$ ist aufzählbar mit maximaler SChwierigkeit.
+\paragraph{Sats 2.33} Eine Sprache $L$ ist aufzählbar gdw. $L\leq H$
+\paragraph{Klasse RE} KLasse RE ist die Klasse aller aufzählbarer Sprachen\begin{itemize}
+    \item Sprache $L_0$ vollständig in RE falls
+    \item Sprache $L_0\in RE$ 
+    \item $\forall L \in RE:L\leq L_0$
+\end{itemize}
+\subparagraph{co-RE} Klasse alle nicht aufzählbarer Sprachen (Komplement von RE)
+\subparagraph{$H_{total}$} Die Sprache $H_{total}$ ist nicht aufzählbar, genauso wie ihr Komplement $\bar{H}_{total}$, weiter hin gilt: $H_\epsilon\leq H_{total}\land H_\epsilon\leq\bar{H}_{total}$
+
 \subsection{Liste unentscheidbarer Probleme}
 \begin{itemize}
     \item allgemeine Halteproblem $H=\{\goedl{M}w|M\text{ hält auf }w\}$
@@ -355,6 +365,9 @@ Die Menge der entscheidbaren Sprachen $L\subseteq\{0,1\}^*$ ist abzählbar.
 Nehmen an ein Problem P kann entschieden werden, dann gibts es eine TM M die dieses Problem lößt. Kann man diese TM M mit einer anderen TM so umformen das sie ein bekanntes unentscheidbares Problem Q lößt? Wenn Ja ist das gegebene Problem P unentscheidbar. gechrieben $Q\leq P \to$ P ist mindestens so schwierig wie Q. P ist reduzierbar auf Q.\\ \\ 
 $P\leq Q \Longleftrightarrow \exists f:I_P\to I_Q$ f berechenbar mit $x\in P gdw. f(x)\in Q\forall x\in I_P$
 \paragraph{Reduktionslemma [2.24]} Gelte $p\leq Q$. Wenn P unentscheidbar, dann auch Q.
+\paragraph{Bem. 2.32} $K\leq L\land L$ aufzählbar $\Rightarrow K$ aufzählbar
+\paragraph{Satz 2.37} $L\cubseteq \{0,1\}^*$ ist aufzählbar (in RE)gdw. es gibt entscheidbare Spraceh $L_0\subseteq\{0,1,\#\}^*$, sodass gilt $u\in L\Longleftrightarrow\exists v:U\# v\in L_0$
+\paragraph{Satz 2.38} $L\subseteq \{0,1\}^*$ ist Komplement einer aufzählbaren Sprache gdw. es gibt eine entscheidbare Sprache $L_0\subseteq\{0,1,\#\}^*$, sodass gilt $U\in L\Longleftrightarrow\forall v:u\#v\in L_0$
 \subsection{Der Satz von Rice}
 Eine Eigenschaft E einer TM heißt nicht-trivial wenn es eine TM mit E gibt, aber auch eine TM, die die Eigenschaft E nicht hat. Eine Eigenschaft einer TM M,  E heißt semantisch wenn E für M nur von der durch M bereschneten Funktion abhängt. $M_1,M_2$ berechnen die selbe Funktion, dann gilt $M_1$ hat E gdw. $M_2$ hat E.
 \begin{itemize}
@@ -373,6 +386,27 @@ Eine Eigenschaft E einer TM heißt nicht-trivial wenn es eine TM mit E gibt, abe
     &\text{ nicht entscheidbar}
 \end{align*}
 $\rightarrow$ Wenn nach Eigenschaften der eingegebnenen TM gefragt wie, wie "M berechnet bei Eingabe 17 die Zahl 42" dann Satz von RIce anwenden
+\subsection{HIlberts 10. Problem + Posts Korrespondenzproblem}
+\subsubsection{Definition Hilberts 10. Problem}
+Beschreibe einen Algorithmus, der entscheidet, ob es ein gegebenes Polynom mit ganzzahligen Koeffizienten eine ganzzahlige Nullstelle hat.\begin{align*}
+    N=&\{p|p\text{ ist ein Polynom mit einer ganzzahliger Nullstelle}\}\\
+    &\to \text{ die menge der ganzzahligen Polynome ist aufzählbar}
+\end{align*}
+$\Longrightarrow$ 10. Hilbertsproblem ist unentscheidbar [Satz von Matijasevic]
+\subsubsection{Potsche Korrespondenzproblem Definition (PKP)}
+Eine Instanz des PKP besteht aus einer Menge \begin{align*}
+    K=\left\{\left[\frac{x_1}{y_1}\right],\dots,\left[\frac{x_k}{y_k}\right]\right\}
+\end{align*}wobei $x_i,y_i$ nichtleere Wörter über einem endlichen Alphabet $\Sigma$ sind. Es soll entschieden werden, ob es eine korrespondierende Folge von Indizes $i_1,\dots,i_n\in\{1,\dots,l\}.n\geq 1$ gibt, also eine Folge, sodass gilt $x_{i_1}x_{i_2}\dots x_{i_n}=y_{i_1}y_{i_2}\dots y_{i_n}$\subsubsection{Modifiziertes PKP (MPKP)}
+Eine Instanz des PKP besteht aus einer Menge \begin{align*}
+    K=\left\{\left[\frac{x_1}{y_1}\right],\dots,\left[\frac{x_k}{y_k}\right]\right\}
+\end{align*}wobei $x_i,y_i$ nichtleere Wörter über einem endlichen Alphabet $\Sigma$ sind. Es soll entschieden werden, ob es eine korrespondierende Folge von Indizes $i_1,\dots,i_n\in\{1,\dots,l\}.n\geq 1$ gibt, also eine Folge, sodass gilt $x_1x_{i_2}\dots x_{i_n}=y_1y_{i_2}\dots y_{i_n}$ unterschied: die FOlge soll mit dem ersten Stein anfangen.
+\subsubsection{Es gilt:}
+\begin{align*}
+    MPKP\leq& PKP\\
+    H\leq& MPKP\\
+    \Longrightarrow H\leq & PKP
+\end{align*}
+Das PKP ist nicht entscheidbar, aber aufzälbar. Das Komplement von PKP ist nicht aufzählbar
 \subsection{Zusammenfassung Kapitel 2}
 \begin{itemize}
     \item Church/Turing-These: klasse der TMs ist gleich der Intuitiv berechenbaren Funktionen
@@ -385,6 +419,12 @@ $\rightarrow$ Wenn nach Eigenschaften der eingegebnenen TM gefragt wie, wie "M b
     \item das allgemeine Halteproblem $H=\{\goedl{M}w|M\text{ hält auf }w\}$ ist nicht entscheidbar\begin{itemize}
         \item $H$ ist Turing-Aufzählbar [Satz 2.17]
         \item $\bar{H}$ ist nicht aufzählbar [Satz 2.18] da H nicht entscheidbar, wäre $\bar{H}$ aufzählbar, dann wäre mit $H$ aufzählbar H entscheidbar \Lightning.
+    \end{itemize}
+    \item Reduktion: Ein Problem $P$ lässt sich auch ein andere Problem $Q$ reduzieren, wenn es eine berechenbare Funktion $f_P$ gibt sodass $x\in P $gdw. $f_P(x)\in Q$ gilt.\begin{itemize}
+        \item $P\leq Q$ P ist reduzierbar auf Q
+        \item ist Q unentscheidbar, dann auch P (vorr. $P\leq Q$)
+        \item ist Q aufzählbar, dann auch P (vorr. $P\leq Q$)
+        \item Sprache L ist aufzählbar, wenn $L\leq H$
     \end{itemize}
     \item Satz von Rice bei Sprachen die auf nach nicht-trivialen semantischen EIgenschaften der Eingegebenen Funktion/TM fragen:\begin{itemize}
         \item nicht-trivial, es gibt TMs die diesse Eigenschaft haben und welche die sie nicht haben
