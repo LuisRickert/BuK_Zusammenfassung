@@ -406,7 +406,90 @@ Eine Instanz des PKP besteht aus einer Menge \begin{align*}
     H\leq& MPKP\\
     \Longrightarrow H\leq & PKP
 \end{align*}
-Das PKP ist nicht entscheidbar, aber aufzälbar. Das Komplement von PKP ist nicht aufzählbar
+Das PKP ist nicht entscheidbar, aber aufzälbar. Das Komplement von PKP ist nicht aufzählbar.
+
+\subsection{WHILE \& LOOP-Programme}
+\begin{definition}{Turing-mächtig}
+Eine Programmiersprache wird als Turing-Mächtig bezeihnet, wenn jede berechenbare Funktion auch durch ein Programm in dieser Programmiersprache berechnet werden kann.
+\end{definition}
+\subsubsection{WHILE-Programme}
+\begin{itemize}
+    \item Variablen $x_1,x_2,\dots$
+    \item Symbole $;,:=,+,\neq$
+    \item key-words: if, then, else, endif, while, do endwhile
+    \item Eingabe in den ersten n Variablen $x_1,x_2,\dots,x_n$. Die Variablen $x_{n+1},\dots$ werden mit 0 initialisiert
+    \item Ergebnis steht am Ende in Variable $x_1$.
+    
+\end{itemize}
+$\to$ WHILE programm sind induktiv definiert
+\paragraph{Die} WHILE-Programmiersprache ist turing mächtig.
+\subsection{LOOP-Programme \& Ackermannfunktion}
+\subsubsection{LOOP-Programme}
+\begin{itemize}
+    \item definiert wie WHILE , LOOP statt While. LOOP $x_i$ DO P ENDLOOP. Führe P $x_i$ mla durch.
+    \item Alle Loop Programme sind durch While Programme simulierbar (Satz 2.47)
+    \item Menge Loop berechenbarer Funktionen $\neq$ Menge totaler Funktionen, da Ackerman eine totale Funktion ist die nicht loop berechenbar ist.
+\end{itemize}
+\subsubsection{Ackermann Funktion}
+\begin{align*}
+    A(0,n) &=n+1 &\text{ für }n\geq 0\\
+    A(m+1,0)&=A(m,1) &\text{ für }m\geq 0\\
+    A(m+1,n+1)&=A(m,A(m+1,n)&\text{ für }m,n\geq 0
+\end{align*}
+\begin{itemize}
+    \item ist total und berechenbar
+    \item terminiert für alle $(x,y)\in\mathbb{N}^2$
+    \item Ergebnis ist immer eine natrüliche Zahl 'Die Ackermann funktion terminiert'
+    \item streng monoton wachsend
+    \item wächst sehr schnell 
+    \item für jedes Loop-Programm P gibt es eine natürliche Zahl $n\in \mathbb{N}$, s.d. für alle $n$ gilt $F_P(n)<A(m,n)$
+    \item die Ackermann funktion ist nicht LOOP berechenbar (Satz 2.62)
+\end{itemize}
+\subsection{Primitivrekursiv \& $\mu$-rekursive Funktionen}
+\subsubsection{Formalismus der rekursiven FUnktionen}
+\begin{itemize}
+    \item Nullfunktion $o^k:\mathbb{N}^k\to\mathbb{N},\forall k\geq 0$\\$o^k(x_1,\dots,x_k)=0,\forall x_1,\dots,x_k\in\mathbb{N}$
+    \item Projektion $\forall 1\leq k \leq k\in\mathbb{N}$:\\$p_i^k(x_1,\dots,x_i,\dots,x_k)=x_i,
+    \forall x_1,\dots,x_k$
+    \item Nachfolger $s:\mathbb{N}\to\mathbb{N}$ mit\\$s(n)=n+1,\forall n\in\mathbb{N}$
+    \item Einsetzung, $h$ n stellig und $g_1,\dots,g_n$ jeweils k-stellig, so entsteht f (k-stellig) aus $h,g_1,\dots,g_k$ durch Einsetzung wenn:\\
+    $f(x_1,\dots,x_k)=h(g_1(x_1,\dots,x_k),\dots,g_n(x_1,\dots,x_k))$
+    \item Primitive Rekursion:\\
+    $g\quad k-$stellig und $h\quad(k+2)$ stellig, so entsteht $f((k+1)stellig)$ aus g und h durch prim.rek., wenn\\\begin{align*}
+        f(0,x_1,\dots,x_k)&=f(x_1,\dots,x_k)\\
+        f(n+1,x_1,\dots,x_k)&=h(f(n,x_1,\dots,x_k),n,x_1,\dots,x_k)
+    \end{align*}
+    \item Addition: $add:\mathbb{N}^2\to\mathbb{N}:$\\\begin{align*}
+        add(0,x)&=x\\
+        add(n+1,x)&=s(add(n,x))
+    \end{align*}
+    \item Multiplikaiton: $mult:\mathbb{N}^2\to\mathbb{N}:$\\\begin{align*}
+        mult(0,x)&=0\\
+        mult(n+1,x)&=add(mult(n,x),x)
+    \end{align*}
+    \item Subtraktion $sub:\mathbb{N}^2\to\mathbb{N}:$\\\begin{align*}
+        sub(x,0)&=x\\
+        sub(x,y+1)&=u(sub(x,y))\\
+        u(0)&=0\\
+        u(n+1)&=n
+    \end{align*}
+\end{itemize}
+\subsubsection{Satz 2.68} Die Klasse der prim.rek. Funktionen stimmt genau mit der Klasse der LOOP-berechenbaren Funktionen überein.
+\subsubsection{Def 2.69} Eie Funktion $f:\mathbb{N}\leadsto\mathbb{N}$ heißt rekursiv/partiell rekursiv/$\mu$-rekrusiv, wenn sie aus Basisfunktionen durch endlichmaliege Anwendung der Prozesse Einsetzung, primitive Rekrusion und Anwendung des $\mu$-Operators entsteht.
+\\ \\
+Der $\mu$-Operator extrahiert für eine  $(k+1)$-stellige Funktion $g$ zu $x_1,\dots,x_k$ das kleinste $y$ sodass $g(z,x_1,\dots,x_k)$ gilt.
+\\ \\
+Aus $(k+1)$-stellige Funktion entsteht die $k$-stellige Funktion $f$ durch anwendung des $\mu$-Operators, wenn:\\
+$f(x_1,\dots,x_k)=$ kleinste $y$ mit $g(y,x_1,\dots,x_k)=0$, wenn $\forall z<y g(z,x_1,\dots,x_k)\neq 0$ definiert ist, falls ein solches $y$ definiert ist, sonst $\perp$ 
+\begin{itemize}
+    \item Aus Funk. $g,(k+1)$-stellig wird $f,k$-stellig wenn:\begin{enumerate}
+        \item $f(x_1,\dots,x_k)=y$ mit $y$ ist das kleinste $y$ sodass $g(y,x_1,\dots,x_k)=0$
+        \item $\forall z<y$ ist $g(z,x_1,\dots,x_k)\neq 0$ definiert.
+        \item existiert kein $y$ mit diesen Eigenschaften $\perp$
+    \end{enumerate}
+    
+\end{itemize}
+\subsubsection{Satz 2.70} Die KLasse der Rekursiven Funktionen stimmt mit genau mit der Klasse der WHILTE/TURING/RAM berechenbaren Funktionen überein.
 \subsection{Zusammenfassung Kapitel 2}
 \begin{itemize}
     \item Church/Turing-These: klasse der TMs ist gleich der Intuitiv berechenbaren Funktionen
@@ -436,5 +519,156 @@ Das PKP ist nicht entscheidbar, aber aufzälbar. Das Komplement von PKP ist nich
             \item es folgt nach SvR\footnote{Satz von Rice} das $L_{eingabe}=L(S)$ nicht entscheidbar.
         \end{enumerate}
     \end{itemize}
+    \item PKP und MPKP sind nicht entscheidbar
+    \item WHILE-Programme sind turing mächtig 
+    \item LOOP-Programme sind nicht turing möchtig
+    \item für alle LOOP Programme gibt es ein m sodass $\forall n:F_P(n)<A(m,n)$
+    \item es gibt keine berechenbare Funktion die schneller als die Busybeaver Funktion wächst\\$\to$ busybeaver ist nicht berechenbar
+    \item rekursive Funktionen bestehen aus der Nullfunktion, Projektion und Nachfolgerfunktion
+    \item $\mu$-Rekursive Funktion entsteht aus Basisfunktionen, endlichmalige Anwendung der Prozesse Einsetztung, primitive Rekursion und Anwednung des $\mu$-Operators
+    \item $LOOP\equiv \text{primitiv rekrusiv} \subsetneq TM\equiv RAM\equiv WHILE\equiv \mu\text{-rekursiv}$
 \end{itemize}
+\section{Komplexität}
+\begin{itemize}
+    \item wie schwer ist es ein Problem zu lösen?
+    \item Welche Probleme lassen sich mit effizienten Algorithmen lösen?
+\end{itemize}
+\subsection{P}
+\begin{itemize}
+    \item worstcase Laufzeit eines Algorithmus $A$: $t_A(n),n\in\mathbb{N}$ für eine Eingabe der Länge $n$ im logarithmischen Kostenmaß.
+    \item ein Algorithmus ist polynomiell beschränkt, wenn $\exists\alpha\in\mathbb{N}:t_A(n)=O(n^\alpha)$\\$\to$ die Laufzeit ist durch ein polynom beschränkt.
+\end{itemize}
+\begin{definition}{Komplexitätsklasse P} ist die Klasse der Probleme, für die es einen Polynomialzeitalgorithmus (effiziente Algorithmen) gibt.
+\end{definition}
+\subsubsection{Liste von Problemen in P}
+\begin{itemize}
+    \item Sortieren 
+    \item Kürzeste Wege
+    \item Minnimaler Spannbaum
+    \item Graphenzusammenhang
+    \item Maximaler Fluss
+    \item Maximum Matching
+    \item Lineare Prorammierung
+    \item GGT
+    \item Primzahltest
+\end{itemize}
+\subsubsection{Problem: Sortieren}
+\begin{align*}
+    \text{Eingabe }:& N\text{ (binär Kodierte) Zahlen }a_1,\dots,a_N\in\mathbb{N}\\
+    \text{Ausgabe }:& \text{ aufsteigend sortierte Folge der Eigabezahlen}
+\end{align*}
+\subsubsection{Problem: Graphenzusammenhang}
+\begin{align*}
+    \text{Eingabe:}&\text{ Graph }G=(V,E)\\
+    \text{Frage:}&\text{ Ist $G$ Zusammenhängend?}\\
+    \to&\text{Eingabe als Adjazenzmatrix}
+\end{align*}
+Um zu zeigen das ein Problem G in P ist: geben einen Poly.zeit Algorithmus an der G löst.
+\subsection{NP}
+NP ist die Klasse der Entscheidungsprobleme, die durch eine NTM erkannt werden, deren worst case Laufzeit $t_M(n)$ poly. beschränkt ist.\\ \\ 
+Alternativ: Eine Sprache L ist in NP, wenn es für die Eingaben aus L ein Zertifikat polynomieller Länge gibt mit dem sich die Zugehörigkeit zu L in polynomieller Zeit verifizieren lässt.Formal:\\ \\ 
+Eine Sprache $L\subseteq\kleene$ ist genau dann in NP, wenn es einen Polynomialzeitalgorithmus V (einen Verifizierer) en ein Polynom p mit der folgenden Eigenschaft gibt:
+\begin{equation*}
+    x\in L \Leftrightarrow\exists y\in\{0,1\}^*,|y|\leq p(|x|): V \text{ akzeptiert}y\#x
+\end{equation*}
+
+\subsubsection{NTM}
+\begin{definition}{NTM}
+Wie eine TM nur das die Zustandsüberführungsfunktion eine Relation ist.
+\begin{align*}
+    \delta\subseteq((Q/\{\bar{q}\})\times\Gamma)\times(Q\times\Gamma\times\{L,R,N\}))
+\end{align*}
+Eine NTM akzeptiert eine Eingabe $x\in\kleene$, falls es mindestens einen Rechenweg gibt, der in eine akzeptierende Endkonfiguration führt. Die von der NTM erkannte Spache L besteht aus allen von der NTM akzeptierten Wörtern.\\ \\
+Laufzeit einer NTM auf einer Eingabe ist die Länge des Kürzestens akzeptierten Rechenweges.
+Die Worst-case Laufzeit für eine Eingabelänge $n$ ist der längeste mögliche Rechenweg, aller akzeptierten Eingaben der Länge n. wird ein WOrt nicht akzeptiert, ist die Laufzeit 0.
+\end{definition}
+\subsubsection{Probleme in NP}
+\paragraph{Cliquenproblem - CLIQUE:}
+\begin{align*}
+    \text{Eingabe}:&\text{ Graph }G=(V,E), k\in\{1,\dots,|V|\}\\
+    \text{Frage}:&\text{ Gibt es eine $k$-Clique}
+\end{align*}
+\paragraph{Rucksackproblem, Knapsack Problem - KP}
+Beim KP wird eine Teilmenge K von N gegebenen Objekten mit Gewichten $w_1,\dots,w_N$ und Nutzen/Profiten $p_1,\dots,p_N$ gesucht, sodass die Objekte aus K in einen Rucksack mit Gewichtsschranke $b$ passen und dabei der Nutzen maximiert wird.
+\begin{align*}
+    \text{Eingabe: }&b\in\mathbb{N},w_1,\dots,w_N\in\{1,\dots,b\},p_1,\dots,p_N\in\mathbb{N}\\
+    \text{zulässige Lösungen:}&K\subseteq\{1,\dots,N\},so dass \sum_{i\in K}w_i\leq b\\
+    \text{Zielfunktion: }& max \sum_{i\in K}p_i
+\end{align*}
+Entscheidungsvariante: Gibt es eine teilmenge der Objekte mit Nutzen mindestens p ?
+\paragraph{Bin Packing Problem - BPP}
+Suche Verteilung ovn N objekten mit Gewichten $w_1,\dots,w_N$ auf eine möglichst kleine Anzahl von Behältern mit Kapaziäte b. Anzahl der Behälter = k\begin{align*}
+    \text{Eingabe: }&b\in\mathbb{N},w_1,\dots,w_N\in\{1,\dots,b\}\\
+    \text{zulässige Lösungen: }&k\in\mathbb{N}\text{ und Funktion }f:\{1,\dots,N\}\to\{1,\dots,k\}\text{ sodass }\\
+    &\forall i\in\{1,\dots,k\}:\sum_{f\in f^{-1}(i)}w_j\leq b\\
+    \text{Zielfunktion: }& \text{minimiere } k 
+\end{align*}
+\paragraph{Traveling Saleman Problem - TSP}
+Beim TSM is tein vollständiger Graph aus N Knoten mit Kantengewichten gegeben. Gesucht ist eine Rundreise (ein Hamiltonkreis, eine Tour) mit kleinsmöglichen Kosten.
+\begin{align*}
+    \text{Eingabe: }&c(i,j)\in\mathbb{N} \text{ für }i,j\in\{1,\dots,N\},\text{ wobei gilt }c(i,j)=c(j,i)\\
+    \text{zulässige Lösungen: }&\text{ Permutationen $\pi$ auf }\{1,\dots,N\}\\
+    \text{Zielfunktion: }&\text{Minimiere }\sum_{i=1}^{N-1}c(\pi(i),\pi(i+1))+c(\pi(N),\pi(1)) 
+\end{align*}
+\underline{Die Entscheidungsvarianten von KP,BPP und TSP sind in NP.}
+\underline{Wenn die Entscheidungsvariante von KP in polyzeit lösbar dann auch die Optimierungsvariante}gilt das für alle?
+\paragraph{Knotenfärbung COLORING}
+\begin{align*}
+    \text{Eingabe: }& \text{Graph }G=(V,E), \text{ Zahl }k\in\{1,\dots,|V|\}\\
+    \text{Frage: }& \text{ Gibt es eine Fäbung }c:V\to\{1,\dots,k\} \text{ der Knoten von G mit k Farben,}\\&\text{ sodass benachbarte Knotne verschiedenen Knoten haben? d.h.: }\forall\{u,v\}\in E:c(u)\neq c(v)?\\
+    COLORING & \text{ NP - Vollständig}
+\end{align*}
+\paragraph{ Erfüllbarkeitsproblem SAT}
+\begin{align*}
+    \text{Eingabe: }&\text{Aussagenlogische Formel}\phi \text{ in KNF}\\
+    &(x_1\lor x_2)\land (x_2\lor x_3)\\
+    \text{Frage: }&\text{Gibt es eine erfüllende Belegung für }\phi?
+\end{align*}
+SAT hat Polyzeit algo $\to$ COLORING hat Polyeit algo
+COLORING keinen Polyzeit algo $\to$ SAT keinen Polyzeit algo
+\paragraph{3SAT}\begin{align*}
+    \text{Eingabe: }&\text{ Aussagenlogische Formel$\phi$ in 3SAT}\\
+    &\text{ (alle Klauseln enthalten genau 3 Literale)}\\
+    \text{Frage: }&\text{ Gibt es eine erfüllende Belegung für $\phi$?}\\
+    SAT&\leq_P 3SAT\\
+    3SAT & \text{ NP-Vollständig}
+\end{align*}
+\subsection{Satz 3.2} Für jedes Entscheidungsproblem $L\in NP$ gibt es einen Algorithmus A, der L entscheidet, und dessen worst-case Laufzeit durch $2^q(n)$ nach oben beschränkt ist, wobei q ein geeignetes Polynom ist.
+\subsubsection{P $\subseteq$ NP}
+\subsubsection{Zeige das Problem in NP}
+\begin{enumerate}
+    \item gebe eine NTM an
+    \item Zeige das es ein Zertifikat mit polyzeit Zertifizierer gibt.
+\end{enumerate}
+\subsection{NP-Vollständigkeit}
+\subsubsection{Polynomielle Reduktion}
+$L_1,L_2$ seien zwei Sprachen über $\Sigma_1,\Sigma_2$. $L_1$ ist polynomiell Reduziertbar auf $L_2$, wenn es eine Reduktion von $L_1$ nach $L_2$ gibt, die in polynomieller Zeit berechenbar ist. Wir schreiben $L_1\leq_P L_2$.\\ \\
+\begin{equation*}
+    L_1\leq_P L_2, L_2\in P\Rightarrow L_1\in P
+\end{equation*}
+$L_1$ wird auf $L_2$ reduziert.
+\subsubsection{NP-Hart}
+Ein Problem heißt NP-hart(schwer) wenn gilt:
+\begin{equation*}
+    \forall L'\in NP:L'\leq_P L
+\end{equation*}
+\begin{align*}
+    L \text{ NP-Hart }&\land L\in P\Rightarrow P=NP\\
+    L^* \text{ NP-Hart }&,L^*\leq_PL\Rightarrow L \text{ NP-hard}
+\end{align*}
+    
+    
+
+\subsubsection{NP-Vollstädig}
+$L$ ist NP-Vollständig $\Leftrightarrow$
+\begin{enumerate}
+    \item $L\in NP \land$
+    \item $L$ NP-hard
+\end{enumerate}
+\paragraph{NPC} beschreibt die Klasse der NP-vollständigen Probleme.
+\subsection{Satz von Cool und Levin}
+SAT ist NP-Vollständig.
+\subsection{Komplexitätslandschaft}
+\subsection{starkt und schwach NP-harte Probleme}
+\subsection{Zusammfassung Kapitel 3}
 \end{document}
