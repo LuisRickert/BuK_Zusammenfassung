@@ -632,8 +632,29 @@ COLORING keinen Polyzeit algo $\to$ SAT keinen Polyzeit algo
     \text{Frage: }&\text{ Gibt es eine erfüllende Belegung für $\phi$?}\\
     SAT&\leq_P 3SAT\\
     3SAT & \text{ NP-Vollständig}
+\end{align*}\paragraph{Hamiltonkreis}
+$\to$ Jeder Knoten wird genau einmal besucht\\
+\subparagraph{Hamiltonkreis un/gerichtet HC/DHC:}
+\begin{align*}
+    \text{Eingabe: }&\text{Graph }G=(V,E)\\
+    \text{Frage: }&\text{ Gibt es einen Hamiltonkreis in G?}
+\end{align*}
+\subparagraph{LEMMA 3.39}$HC\leq_p DHC \land DHC\leq_p HC$
+\subparagraph{Satz 3.40}$HC/DHC$ NP-Vollständig
+\paragraph{SUBSET-SUM:}
+\begin{align*}
+    \text{Eingabe: }&a_1,\dots,a_N\in\mathbb{N},b\in\mathbb{N}\\
+    \text{Frage: }&\text{ Gibt es }K\subseteq\{1,\dots,N\}\text{ mit }\sum_{i\in K}a_i=b?\\
+    SUBSETSUM:& \text{NP-Vollständig}\\
+    \to&\text{ spezialfall von SUBSETSUM, deswegen NP-Vollständig}
+\end{align*}
+\paragraph{PARTITION:}
+\begin{align*}
+    \text{Eingabe: }&a_1,\dots,a_N\in\mathbb{N}\\
+    \text{Frage: }&\text{ Gibt es }K\subseteq\{1,\dots,N\}\text{ mit }\sum_{i\in K}a_i=\sum_{i\in\{\1,\dots,N\}/K}a_i
 \end{align*}
 \subsection{Satz 3.2} Für jedes Entscheidungsproblem $L\in NP$ gibt es einen Algorithmus A, der L entscheidet, und dessen worst-case Laufzeit durch $2^q(n)$ nach oben beschränkt ist, wobei q ein geeignetes Polynom ist.
+
 \subsubsection{P $\subseteq$ NP}
 \subsubsection{Zeige das Problem in NP}
 \begin{enumerate}
@@ -656,9 +677,6 @@ Ein Problem heißt NP-hart(schwer) wenn gilt:
     L \text{ NP-Hart }&\land L\in P\Rightarrow P=NP\\
     L^* \text{ NP-Hart }&,L^*\leq_PL\Rightarrow L \text{ NP-hard}
 \end{align*}
-    
-    
-
 \subsubsection{NP-Vollstädig}
 $L$ ist NP-Vollständig $\Leftrightarrow$
 \begin{enumerate}
@@ -669,6 +687,82 @@ $L$ ist NP-Vollständig $\Leftrightarrow$
 \subsection{Satz von Cool und Levin}
 SAT ist NP-Vollständig.
 \subsection{Komplexitätslandschaft}
+\begin{itemize}
+    \item PSPACE: KLasse der Probleme, die mit einem Polynomiell beschränkten Band auf einer TM gelöst werden können\\$NP\subseteq PSPACE$
+    \item EXPTIME: Klasse der Probleme mit Laufzeitschranke $2^{p(n)$ mit geeignetem Polynom.\\$NP\subseteq EXPTIME$
+    \item CO-NP, Komplement der Klasse NP. Enthält alle Probleme bei denen die "Nein"-Antwort in polyzeit verifiziert werden können.
+    \item Annahme: $P\subsetneq NP\subsetneq PSPACE\subsetneq EXPTIME$\\$\to$ Unklar ob Iklusionen echt oder unecht sind.
+\end{itemize}
+\subsection{Approximations Algorithmen für Np Harte Probleme}
+\begin{itemize}
+    \item $\alpha$-approximations Algorithmus, $\alpha>1$, für minimierungsprobleme, berechnet eine Lösung mit Zielfunktionswert von höchstens $\alpha\cdot opt(i)$
+    \item $\alpha$-approximations Algorithmus, $\alpha<1$, für maximierungsprobleme, berechnet eine Lösung mit Zielfunktionswert von mindestens $\alpha\cdot opt(i)$
+    \item $\alpha$ genannt Approximationsfaktor oder Approcimationsgüte
+    \item Approximatiins Schema A heißt FPTAS (fully polynomial time approximation scheme), falls Laufzeit von A polynomiell sowohl in n als auch $\frac{1}{e}$ beschränkt ist.\begin{itemize}
+        \item typische Laufzeiten:
+        \item $O(n^2/\epsilon)\lor O(n^3+\frac{1}{\epsilon^2})$
+    \end{itemize}
+    \item Approximations Schema A heißt PTAS (polynomial time approximation scheme), falls Laufzeit von A für jedes konstantes $\epsilon>0$ polynomiell in n als beschränkt ist.\begin{itemize}
+        \item typische Laufzeiten:
+        \item $O(2^{\frac{1}{\epsilon}}n^2)\lor O(n^{\frac{1}{\epsilon}}log(n))$
+    \end{itemize}
+    \item Für KP gibt es einen Algorithmus, der eine optimale Lösung in $O(N^2P)$ uniformen Rechenschritten berechnet.
+    \item KP hat einen FPTAS
+\end{itemize}
 \subsection{starkt und schwach NP-harte Probleme}
+\paragraph{Stark np-hard} Ein NP-hartes Problem, das bei unärer Kodierung einen polynomiellen Algorithmus hat, wird asl schwach NP-hard bezeichnet. Ein Problem, das auch bei unärer Kodierung der EIngabezahlen NP-Hard bleibt, wird als stark NP-hard bezeichnet.
+\subparagraph{schwach NP-Hard:}
+\begin{itemize}
+    \item KP
+    \item SUBSETUM
+    \item Partition
+\end{itemize}
+\subparagraph{stark NP-Hard:}
+\begin{itemize}
+    \item CLIQUE
+    \item TSP
+    \item BPP
+\end{itemize}
+Sei $\Pi$ Optimierungsproblem mit ganzahliger, nicht-negativer Zielfunktion. SEi p geeignetes Polynom. Für Eingabe I sei $opt(I)\in\mathbb{N}$ der Wert einer optimalen Lösung, $n_u(I)$ die unäre Eingabelänge. Es gelte $opt(i)<p(n_u(I))$ für jede Eingabe $I$. Falls $\Pi$ stark NP-hart ist, so hat $\Pi$ kein FPTAS, es sein denn es gilt $P=NP$
 \subsection{Zusammfassung Kapitel 3}
+\begin{itemize}
+    \item P ist die KLasse der Probleme, für die es einen Poly.Zeit Algorithmus gibt.
+    \item NP ist die KLasse der Sprachen die von einer NTM erkannt werden \begin{itemize}
+        \item gebe eine NTM an
+        \item gebe ein Zertifikat Polylänge und einen Polyzeit Verifizierer
+    \end{itemize}
+    \item NPC ist die KLasse der NP-Vollständigen Probleme\begin{itemize}
+        \item Clique
+        \item BPP (+ E-Var)
+        \item KP (+ E-Var)
+        \item TSP
+        \item COLORING
+        \item SAT
+        \item 3SAt
+        \item HC
+        \item DHC
+        \item SUBSETSUM
+        \item PARTITION
+    \end{itemize}
+    \item $L$ Np-Vollständig gdw.$L\in NP$ und $L$ NP-Hard
+    \item es gilt $L'\leq_P L$ dann \begin{itemize}
+        \item $L\in P\Rightarrow L'\in P$
+        \item $L\in NP\Rightarrow L'\in NP$
+        \item $L$ NP-Vollständig $\Rightarrow L'$ NP-Vollständig
+    \end{itemize}
+    \item L ist NP-Hard gdw. $\forall L'\in NP: L'\leq_p L$\\ Optimierungsproblem NP-Hard wenn die E-Variante HP-hard ist.
+    \item Satz von Cook und Levin: SAT ist NP-VOllständig
+    \item stark NP-hard: wenn Problem immer noch NP-SChwer, bei wechsel von binärer Kodierung zu unärer Kodierung
+    \item schwach NP-hard: wenn Problem nach wechsel von Binärer zu Unärer Kodiereung danach in P ist.
+    \item schwach NP-Hard\begin{itemize}
+        \item KP
+        \item SUB-SETSUM
+        \item PARTITION
+    \end{itemize}
+    \item startk NP-hard:\begin{itemize}
+        \item CLIQUE
+        \item TSP
+        \item BPP
+    \end{itemize}
+\end{itemize}
 \end{document}
